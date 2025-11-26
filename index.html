@@ -9,12 +9,15 @@
 <body class="bg-slate-50">
   <div id="root"></div>
 
-  <!-- React & ReactDOM via CDN -->
+  <!-- React & ReactDOM -->
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
 
-  <!-- App JS -->
-  <script type="text/javascript">
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- App JS with JSX -->
+  <script type="text/babel">
     const { useState, useMemo } = React;
 
     function TradeRiskManager() {
@@ -94,7 +97,7 @@
                 </div>
                 <div>
                   <label className="text-sm font-medium">Pip Size (e.g., 0.0001 for most pairs)</label>
-                  <input type="number" step={0.00001} className="mt-1 w-full border rounded px-3 py-2" value={pipSize} onChange={e => setPipSize(Number(e.target.value) || 0.0001)} />
+                  <input type="number" step="0.00001" className="mt-1 w-full border rounded px-3 py-2" value={pipSize} onChange={e => setPipSize(Number(e.target.value) || 0.0001)} />
                 </div>
                 <div>
                   <label className="text-sm font-medium">Notes (optional)</label>
