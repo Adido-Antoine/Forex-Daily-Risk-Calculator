@@ -1,18 +1,15 @@
-import React, { useState, useMemo } from 'react';
+const { useState, useMemo } = React;
 
-export default function TradeRiskManager() {
+function TradeRiskManager() {
   const [funds, setFunds] = useState(1000);
   const [numTrades, setNumTrades] = useState(5);
   const [dailyRiskPct, setDailyRiskPct] = useState(2);
   const [riskReward, setRiskReward] = useState(2);
-  const [pipSize, setPipSize] = useState(0.0001); // pip size for most pairs
+  const [pipSize, setPipSize] = useState(0.0001);
   const [entryPrice, setEntryPrice] = useState(0);
   const [notes, setNotes] = useState('');
 
-  // Suggested max trades for the day based on risk
   const suggestedMaxTrades = useMemo(() => Math.min(Math.floor(100 / dailyRiskPct), 10), [dailyRiskPct]);
-
-  // Calculations
   const dailyRiskAmount = useMemo(() => funds * (dailyRiskPct / 100), [funds, dailyRiskPct]);
   const perTradeRisk = useMemo(() => (numTrades > 0 ? dailyRiskAmount / numTrades : 0), [dailyRiskAmount, numTrades]);
   const slPips = useMemo(() => perTradeRisk > 0 ? perTradeRisk / (pipSize * funds) : 0, [perTradeRisk, pipSize, funds]);
@@ -49,7 +46,7 @@ export default function TradeRiskManager() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 flex items-start justify-center">
+    <div className="min-h-screen p-6 flex items-start justify-center">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-6">
         <header className="mb-4">
           <h1 className="text-2xl font-semibold">Trade Risk Manager</h1>
@@ -147,3 +144,6 @@ export default function TradeRiskManager() {
     </div>
   );
 }
+
+// Render
+ReactDOM.render(<TradeRiskManager />, document.getElementById('root'));
